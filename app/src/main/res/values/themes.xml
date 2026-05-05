@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Eyris" parent="android:Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">@color/primary_deep_indigo</item>
+        <item name="android:colorAccent">@color/accent_electric_violet</item>
+        <item name="android:colorBackground">@color/primary_deep_indigo</item>
+        <item name="android:colorForeground">@color/text_primary_off_white</item>
+        <item name="android:windowBackground">@color/primary_deep_indigo</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

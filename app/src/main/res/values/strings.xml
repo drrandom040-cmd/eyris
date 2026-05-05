@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Eyris</string>
+    <string name="app_description">Lead Discovery &amp; CRM Tool</string>
+    
+    <!-- Navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_leads">Leads</string>
+    
+    <!-- Search Screen -->
+    <string name="search_location_hint">Enter location</string>
+    <string name="search_category_hint">Select category</string>
+    <string name="search_button">Search</string>
+    <string name="search_loading">Searching businesses...</string>
+    <string name="search_no_results">No results found</string>
+    
+    <!-- Leads Screen -->
+    <string name="leads_empty">No leads yet. Start searching!</string>
+    <string name="leads_title">Leads</string>
+    <string name="contacted_title">Contacted</string>
+    
+    <!-- Business Card -->
+    <string name="business_name">Business Name</string>
+    <string name="business_category">Category</string>
+    <string name="business_address">Address</string>
+    <string name="business_phone">Phone</string>
+    <string name="business_hours">Hours</string>
+    <string name="business_rating">Rating</string>
+    
+    <!-- Status -->
+    <string name="status_answered">Answered</string>
+    <string name="status_accepted">Accepted</string>
+    <string name="status_rejected">Rejected</string>
+    <string name="status_ghosted">Ghosted</string>
+    
+    <!-- Export -->
+    <string name="export_csv">Export as CSV</string>
+    <string name="export_pdf">Export as PDF</string>
+    <string name="export_both">Export Both</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_logout">Logout</string>
+    <string name="settings_account">Account</string>
+    
+    <!-- Errors -->
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_auth">Authentication failed. Please try again.</string>
+    <string name="error_database">Database error. Please try again.</string>
+</resources>

@@ -1,0 +1,8 @@
+# Local properties for Eyris project
+# Copy this file to local.properties and fill in your values
+
+# Android SDK path
+sdk.dir=/path/to/android/sdk
+
+# Foursquare API Key
+FSQ_API_KEY=your_foursquare_api_key_here
