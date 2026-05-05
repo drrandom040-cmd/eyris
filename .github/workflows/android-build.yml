@@ -42,14 +42,14 @@ jobs:
         run: ./gradlew test
 
       - name: Upload APK to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
           path: app/build/outputs/apk/debug/app-debug.apk
 
       - name: Upload build reports
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-reports
           path: app/build/reports/
