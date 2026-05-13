@@ -24,7 +24,7 @@
    Edit `local.properties` and add:
    ```properties
    sdk.dir=/path/to/android/sdk
-   FSQ_API_KEY=EJMZFLPCLH1GAKFTEY3JEXH0UK4XGGL5ZIPBYEUXYVITUAMW
+   FSQ_API_KEY=your_foursquare_api_key
    ```
 
 3. **Add Firebase Configuration**
@@ -61,7 +61,7 @@
 
 3. **Configure GitHub Secrets for CI/CD**
    - Go to Settings → Secrets and variables → Actions
-   - Add `FSQ_API_KEY`: `EJMZFLPCLH1GAKFTEY3JEXH0UK4XGGL5ZIPBYEUXYVITUAMW`
+   - Add `FSQ_API_KEY`: `your_foursquare_api_key`
    - Add `FIREBASE_CONFIG`: Base64-encoded `google-services.json`
      ```bash
      base64 app/google-services.json
