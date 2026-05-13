@@ -25,9 +25,14 @@ jobs:
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           echo "FSQ_API_KEY=${{ secrets.FSQ_API_KEY }}" >> local.properties
 
-      - name: Decode and write google-services.json
+      - name: Create google-services.json
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
-          echo "${{ secrets.FIREBASE_CONFIG }}" | base64 -d > app/google-services.json
+          case "$FIREBASE_CONFIG" in
+            "{"*) echo "$FIREBASE_CONFIG" > app/google-services.json ;;
+            *) echo "$FIREBASE_CONFIG" | base64 -d > app/google-services.json ;;
+          esac
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
