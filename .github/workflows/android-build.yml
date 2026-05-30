@@ -28,7 +28,7 @@ jobs:
       - name: Decode and write google-services.json
         run: |
           CONFIG='${{ secrets.FIREBASE_CONFIG }}'
-          if [[ $CONFIG == \{* ]]; then
+          if [[ $CONFIG == {* ]]; then
             echo "$CONFIG" > app/google-services.json
           else
             echo "$CONFIG" | base64 -d > app/google-services.json
