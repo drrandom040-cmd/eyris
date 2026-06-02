@@ -26,25 +26,26 @@ jobs:
           echo "FSQ_API_KEY=${{ secrets.FSQ_API_KEY }}" >> local.properties
 
       - name: Decode and write google-services.json
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
-          CONFIG='${{ secrets.FIREBASE_CONFIG }}'
-          if [[ $CONFIG == \{* ]]; then
-            echo "$CONFIG" > app/google-services.json
+          if [[ $FIREBASE_CONFIG == \{* ]]; then
+            echo "$FIREBASE_CONFIG" > app/google-services.json
           else
-            echo "$CONFIG" | base64 -d > app/google-services.json
+            echo "$FIREBASE_CONFIG" | base64 -d > app/google-services.json
           fi
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x processDebugGoogleServices -x processReleaseGoogleServices
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug -x processDebugGoogleServices
 
       - name: Run unit tests
-        run: ./gradlew test
+        run: ./gradlew test -x processDebugGoogleServices
 
       - name: Upload APK to artifacts
         uses: actions/upload-artifact@v4
