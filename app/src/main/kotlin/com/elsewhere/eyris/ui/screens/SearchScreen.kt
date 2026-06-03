@@ -28,8 +28,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -99,7 +99,7 @@ fun SearchScreen(
                             IconButton(onClick = { onQueryChange("") }) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
-                                    contentDescription = LocalContext.current.getString(com.elsewhere.eyris.R.string.clear_business_type),
+                                    contentDescription = stringResource(com.elsewhere.eyris.R.string.clear_business_type),
                                     tint = Color(0xFF94A3B8)
                                 )
                             }
@@ -136,7 +136,7 @@ fun SearchScreen(
                             IconButton(onClick = { onLocationChange("") }) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
-                                    contentDescription = LocalContext.current.getString(com.elsewhere.eyris.R.string.clear_location),
+                                    contentDescription = stringResource(com.elsewhere.eyris.R.string.clear_location),
                                     tint = Color(0xFF94A3B8)
                                 )
                             }
@@ -173,7 +173,7 @@ fun SearchScreen(
                             IconButton(onClick = { onCategoryChange("") }) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
-                                    contentDescription = LocalContext.current.getString(com.elsewhere.eyris.R.string.clear_category),
+                                    contentDescription = stringResource(com.elsewhere.eyris.R.string.clear_category),
                                     tint = Color(0xFF94A3B8)
                                 )
                             }
