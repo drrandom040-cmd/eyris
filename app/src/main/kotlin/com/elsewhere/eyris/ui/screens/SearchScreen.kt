@@ -35,6 +35,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 import com.elsewhere.eyris.ui.components.BusinessCard
 import com.elsewhere.eyris.ui.viewmodel.SearchState
@@ -99,7 +100,7 @@ fun SearchScreen(
                             IconButton(onClick = { onQueryChange("") }) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
-                                    contentDescription = stringResource(com.elsewhere.eyris.R.string.clear_business_type),
+                                    contentDescription = stringResource(R.string.clear_business_type),
                                     tint = Color(0xFF94A3B8)
                                 )
                             }
@@ -136,7 +137,7 @@ fun SearchScreen(
                             IconButton(onClick = { onLocationChange("") }) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
-                                    contentDescription = stringResource(com.elsewhere.eyris.R.string.clear_location),
+                                    contentDescription = stringResource(R.string.clear_location),
                                     tint = Color(0xFF94A3B8)
                                 )
                             }
@@ -173,7 +174,7 @@ fun SearchScreen(
                             IconButton(onClick = { onCategoryChange("") }) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
-                                    contentDescription = stringResource(com.elsewhere.eyris.R.string.clear_category),
+                                    contentDescription = stringResource(R.string.clear_category),
                                     tint = Color(0xFF94A3B8)
                                 )
                             }
