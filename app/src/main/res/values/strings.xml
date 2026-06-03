@@ -14,6 +14,9 @@
     <string name="search_button">Search</string>
     <string name="search_loading">Searching businesses...</string>
     <string name="search_no_results">No results found</string>
+    <string name="clear_business_type">Clear Business Type</string>
+    <string name="clear_location">Clear Location</string>
+    <string name="clear_category">Clear Category</string>
     
     <!-- Leads Screen -->
     <string name="leads_empty">No leads yet. Start searching!</string>
