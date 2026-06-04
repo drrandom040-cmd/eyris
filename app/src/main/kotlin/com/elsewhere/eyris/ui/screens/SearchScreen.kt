@@ -11,13 +11,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -25,10 +28,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 import com.elsewhere.eyris.ui.components.BusinessCard
 import com.elsewhere.eyris.ui.viewmodel.SearchState
@@ -47,6 +54,8 @@ fun SearchScreen(
     onBusinessClick: (Business) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -85,7 +94,21 @@ fun SearchScreen(
                         focusedLabelColor = Color(0xFF7C3AED),
                         unfocusedLabelColor = Color(0xFF94A3B8)
                     ),
-                    singleLine = true
+                    singleLine = true,
+                    trailingIcon = {
+                        if (query.isNotEmpty()) {
+                            IconButton(onClick = { onQueryChange("") }) {
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = stringResource(R.string.clear_query),
+                                    tint = Color(0xFF94A3B8)
+                                )
+                            }
+                        }
+                    },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -108,7 +131,21 @@ fun SearchScreen(
                         focusedLabelColor = Color(0xFF7C3AED),
                         unfocusedLabelColor = Color(0xFF94A3B8)
                     ),
-                    singleLine = true
+                    singleLine = true,
+                    trailingIcon = {
+                        if (location.isNotEmpty()) {
+                            IconButton(onClick = { onLocationChange("") }) {
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = stringResource(R.string.clear_location),
+                                    tint = Color(0xFF94A3B8)
+                                )
+                            }
+                        }
+                    },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -131,14 +168,37 @@ fun SearchScreen(
                         focusedLabelColor = Color(0xFF7C3AED),
                         unfocusedLabelColor = Color(0xFF94A3B8)
                     ),
-                    singleLine = true
+                    singleLine = true,
+                    trailingIcon = {
+                        if (category.isNotEmpty()) {
+                            IconButton(onClick = { onCategoryChange("") }) {
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = stringResource(R.string.clear_category),
+                                    tint = Color(0xFF94A3B8)
+                                )
+                            }
+                        }
+                    },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Search
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onSearch = {
+                            onSearch()
+                            keyboardController?.hide()
+                        }
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Search Button
                 Button(
-                    onClick = onSearch,
+                    onClick = {
+                        onSearch()
+                        keyboardController?.hide()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
