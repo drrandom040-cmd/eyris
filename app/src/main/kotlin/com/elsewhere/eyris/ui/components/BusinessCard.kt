@@ -21,10 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 
 @Composable
@@ -121,16 +125,40 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        val description = stringResource(R.string.social_instagram)
+                        Text(
+                            text = "📷",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = description }
+                        )
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        val description = stringResource(R.string.social_facebook)
+                        Text(
+                            text = "f",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = description }
+                        )
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        val description = stringResource(R.string.social_tiktok)
+                        Text(
+                            text = "🎵",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = description }
+                        )
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        val description = stringResource(R.string.social_whatsapp)
+                        Text(
+                            text = "💬",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = description }
+                        )
                     }
                 }
             }
