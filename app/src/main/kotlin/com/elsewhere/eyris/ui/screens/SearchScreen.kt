@@ -101,7 +101,7 @@ fun SearchScreen(
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     keyboardActions = KeyboardActions(
-                        onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                        onNext = { focusManager.moveFocus(FocusDirection.Next) }
                     ),
                     trailingIcon = if (query.isNotEmpty()) {
                         {
@@ -139,7 +139,7 @@ fun SearchScreen(
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     keyboardActions = KeyboardActions(
-                        onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                        onNext = { focusManager.moveFocus(FocusDirection.Next) }
                     ),
                     trailingIcon = if (location.isNotEmpty()) {
                         {
