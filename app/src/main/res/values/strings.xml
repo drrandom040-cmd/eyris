@@ -48,4 +48,11 @@
     <string name="error_network">Network error. Please check your connection.</string>
     <string name="error_auth">Authentication failed. Please try again.</string>
     <string name="error_database">Database error. Please try again.</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_instagram">Instagram</string>
+    <string name="a11y_facebook">Facebook</string>
+    <string name="a11y_tiktok">TikTok</string>
+    <string name="a11y_whatsapp">WhatsApp</string>
+    <string name="a11y_phone">Phone</string>
 </resources>
