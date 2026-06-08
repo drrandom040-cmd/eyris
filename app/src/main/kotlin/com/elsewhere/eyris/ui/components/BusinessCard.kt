@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import com.elsewhere.eyris.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -111,7 +112,7 @@ fun BusinessCard(
 
             // Phone
             if (!business.phone.isNullOrEmpty()) {
-                val phoneLabel = stringResource(com.elsewhere.eyris.R.string.business_phone)
+                val phoneLabel = stringResource(R.string.business_phone)
                 Text(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
@@ -128,7 +129,7 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        val label = stringResource(com.elsewhere.eyris.R.string.business_instagram)
+                        val label = stringResource(R.string.business_instagram)
                         Text(
                             text = "📷",
                             modifier = Modifier
@@ -137,7 +138,7 @@ fun BusinessCard(
                         )
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        val label = stringResource(com.elsewhere.eyris.R.string.business_facebook)
+                        val label = stringResource(R.string.business_facebook)
                         Text(
                             text = "f",
                             modifier = Modifier
@@ -146,7 +147,7 @@ fun BusinessCard(
                         )
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        val label = stringResource(com.elsewhere.eyris.R.string.business_tiktok)
+                        val label = stringResource(R.string.business_tiktok)
                         Text(
                             text = "🎵",
                             modifier = Modifier
@@ -155,7 +156,7 @@ fun BusinessCard(
                         )
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        val label = stringResource(com.elsewhere.eyris.R.string.business_whatsapp)
+                        val label = stringResource(R.string.business_whatsapp)
                         Text(
                             text = "💬",
                             modifier = Modifier
