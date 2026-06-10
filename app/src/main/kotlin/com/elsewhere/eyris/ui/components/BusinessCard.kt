@@ -19,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -111,7 +113,10 @@ fun BusinessCard(
                 Text(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
-                    color = Color(0xFFF1F5F9)
+                    color = Color(0xFFF1F5F9),
+                    modifier = Modifier.semantics {
+                        contentDescription = "Phone: ${business.phone}"
+                    }
                 )
             }
 
@@ -121,16 +126,36 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "📷",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = "Instagram available" }
+                        )
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "f",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = "Facebook available" }
+                        )
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "🎵",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = "TikTok available" }
+                        )
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "💬",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = "WhatsApp available" }
+                        )
                     }
                 }
             }

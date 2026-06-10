@@ -1,0 +1,3 @@
+## 2025-05-14 - Accessibility Semantics for Emojis in Jetpack Compose
+**Learning:** Using raw emojis or single-letter characters as labels in components like `BusinessCard` is inaccessible as screen readers either announce the emoji name (e.g., "Camera emoji") or the character literally. Applying `Modifier.semantics { contentDescription = "..." }` to the `Text` or `Icon` composable provides a clear, human-readable label without affecting the visual design.
+**Action:** Always wrap emoji-based labels or data indicators in a `semantics` modifier with a descriptive `contentDescription` (e.g., "Phone: $number" instead of just the phone emoji and number).
