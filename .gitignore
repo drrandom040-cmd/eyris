@@ -27,6 +27,7 @@ local.properties
 *.keystore
 *.rar
 *.zip
+!gradle/wrapper/gradle-wrapper.jar
 out/
 *.swp
 *~
