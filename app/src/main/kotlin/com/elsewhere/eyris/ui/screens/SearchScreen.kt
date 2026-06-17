@@ -11,24 +11,33 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 import com.elsewhere.eyris.ui.components.BusinessCard
 import com.elsewhere.eyris.ui.viewmodel.SearchState
@@ -47,6 +56,9 @@ fun SearchScreen(
     onBusinessClick: (Business) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -67,71 +79,44 @@ fun SearchScreen(
         // Search Inputs
         item {
             Column {
-                // Query Input
-                OutlinedTextField(
+                SearchTextField(
                     value = query,
                     onValueChange = onQueryChange,
-                    label = { Text("Business Type") },
-                    placeholder = { Text("e.g., Restaurant, Salon") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true
+                    label = "Business Type",
+                    placeholder = "e.g., Restaurant, Salon",
+                    imeAction = ImeAction.Next,
+                    keyboardActions = KeyboardActions(
+                        onNext = { focusManager.moveFocus(FocusDirection.Next) }
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Location Input
-                OutlinedTextField(
+                SearchTextField(
                     value = location,
                     onValueChange = onLocationChange,
-                    label = { Text("Location") },
-                    placeholder = { Text("e.g., New York, London") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true
+                    label = "Location",
+                    placeholder = "e.g., New York, London",
+                    imeAction = ImeAction.Next,
+                    keyboardActions = KeyboardActions(
+                        onNext = { focusManager.moveFocus(FocusDirection.Next) }
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Category Input
-                OutlinedTextField(
+                SearchTextField(
                     value = category,
                     onValueChange = onCategoryChange,
-                    label = { Text("Category (Optional)") },
-                    placeholder = { Text("e.g., Food & Drink") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true
+                    label = "Category (Optional)",
+                    placeholder = "e.g., Food & Drink",
+                    imeAction = ImeAction.Search,
+                    keyboardActions = KeyboardActions(
+                        onSearch = {
+                            keyboardController?.hide()
+                            onSearch()
+                        }
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -254,4 +239,49 @@ fun SearchScreen(
             }
         }
     }
+}
+
+@Composable
+private fun SearchTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    placeholder: String,
+    modifier: Modifier = Modifier,
+    imeAction: ImeAction = ImeAction.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(label) },
+        placeholder = { Text(placeholder) },
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color(0xFF7C3AED),
+            unfocusedBorderColor = Color(0xFF16213E),
+            focusedTextColor = Color(0xFFF1F5F9),
+            unfocusedTextColor = Color(0xFFF1F5F9),
+            focusedLabelColor = Color(0xFF7C3AED),
+            unfocusedLabelColor = Color(0xFF94A3B8)
+        ),
+        singleLine = true,
+        trailingIcon = {
+            if (value.isNotEmpty()) {
+                IconButton(onClick = { onValueChange("") }) {
+                    Icon(
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = stringResource(R.string.search_clear),
+                        tint = Color(0xFF94A3B8)
+                    )
+                }
+            }
+        },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            imeAction = imeAction
+        ),
+        keyboardActions = keyboardActions
+    )
 }
