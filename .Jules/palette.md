@@ -1,0 +1,3 @@
+## 2025-05-14 - Optimized Search Flow & Accessibility
+**Learning:** In Jetpack Compose, refactoring repetitive `OutlinedTextField` logic into a private helper composable within the same screen file is the most effective way to implement consistent UX (like trailing clear buttons and keyboard actions) while adhering to the 50-line PR constraint. Additionally, social handle emojis (📷, 🎵, 💬) must be explicitly mapped to string resources via `Modifier.semantics` to be accessible.
+**Action:** Always encapsulate search-intensive input fields into a local `SearchTextField` helper to manage focus, keyboard actions, and clear states centrally.

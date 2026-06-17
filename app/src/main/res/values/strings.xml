@@ -11,6 +11,10 @@
     <!-- Search Screen -->
     <string name="search_location_hint">Enter location</string>
     <string name="search_category_hint">Select category</string>
+    <string name="social_instagram">Instagram</string>
+    <string name="social_facebook">Facebook</string>
+    <string name="social_tiktok">TikTok</string>
+    <string name="social_whatsapp">WhatsApp</string>
     <string name="search_button">Search</string>
     <string name="search_loading">Searching businesses...</string>
     <string name="search_no_results">No results found</string>
@@ -25,6 +29,7 @@
     <string name="business_category">Category</string>
     <string name="business_address">Address</string>
     <string name="business_phone">Phone</string>
+    <string name="phone_description">Phone: %s</string>
     <string name="business_hours">Hours</string>
     <string name="business_rating">Rating</string>
     
