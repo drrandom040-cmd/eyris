@@ -23,7 +23,6 @@ local.properties
 *.iml
 *.iws
 *.jar
-!gradle/wrapper/gradle-wrapper.jar
 *.jks
 *.keystore
 *.rar
