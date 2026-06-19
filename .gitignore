@@ -30,6 +30,7 @@ local.properties
 out/
 *.swp
 *~
+!gradle/wrapper/gradle-wrapper.jar
 
 # Keystore files
 *.jks
