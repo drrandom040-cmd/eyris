@@ -86,8 +86,8 @@ fun SearchScreen(
                     focusedLabelColor = Color(0xFF7C3AED),
                     unfocusedLabelColor = Color(0xFF94A3B8)
                 )
-                val clearIcon: @Composable (String, (String) -> Unit) -> Unit = { val, onVal ->
-                    if (val.isNotEmpty()) IconButton(onClick = { onVal("") }) {
+                val clearIcon: @Composable (String, (String) -> Unit) -> Unit = { textValue, onValueChangeAction ->
+                    if (textValue.isNotEmpty()) IconButton(onClick = { onValueChangeAction("") }) {
                         Icon(Icons.Filled.Clear, stringResource(R.string.search_clear), tint = Color(0xFF94A3B8))
                     }
                 }
