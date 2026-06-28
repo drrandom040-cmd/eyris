@@ -27,12 +27,13 @@ jobs:
 
       - name: Decode and write google-services.json
         run: |
-          FIREBASE_CONFIG='${{ secrets.FIREBASE_CONFIG }}'
           if [[ $FIREBASE_CONFIG == {* ]]; then
             echo "$FIREBASE_CONFIG" > app/google-services.json
           else
             echo "$FIREBASE_CONFIG" | base64 -d > app/google-services.json
           fi
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
