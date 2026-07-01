@@ -59,6 +59,47 @@ fun SearchScreen(
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
 
+    @Composable
+    fun SearchTextField(
+        value: String,
+        onValueChange: (String) -> Unit,
+        label: String,
+        placeholder: String,
+        imeAction: ImeAction,
+        onAction: () -> Unit
+    ) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            label = { Text(label) },
+            placeholder = { Text(placeholder) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(8.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFF7C3AED),
+                unfocusedBorderColor = Color(0xFF16213E),
+                focusedTextColor = Color(0xFFF1F5F9),
+                unfocusedTextColor = Color(0xFFF1F5F9),
+                focusedLabelColor = Color(0xFF7C3AED),
+                unfocusedLabelColor = Color(0xFF94A3B8)
+            ),
+            singleLine = true,
+            trailingIcon = {
+                if (value.isNotEmpty()) {
+                    IconButton(onClick = { onValueChange("") }) {
+                        Icon(
+                            imageVector = Icons.Filled.Clear,
+                            contentDescription = stringResource(R.string.search_clear),
+                            tint = Color(0xFF94A3B8)
+                        )
+                    }
+                }
+            },
+            keyboardOptions = KeyboardOptions(imeAction = imeAction),
+            keyboardActions = KeyboardActions(onNext = { onAction() }, onSearch = { onAction() })
+        )
+    }
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -79,108 +120,39 @@ fun SearchScreen(
         // Search Inputs
         item {
             Column {
-                // Query Input
-                OutlinedTextField(
+                SearchTextField(
                     value = query,
                     onValueChange = onQueryChange,
-                    label = { Text("Business Type") },
-                    placeholder = { Text("e.g., Restaurant, Salon") },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true,
-                    trailingIcon = {
-                        if (query.isNotEmpty()) {
-                            IconButton(onClick = { onQueryChange("") }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Clear,
-                                    contentDescription = stringResource(R.string.search_clear),
-                                    tint = Color(0xFF94A3B8)
-                                )
-                            }
-                        }
-                    },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) })
+                    label = "Business Type",
+                    placeholder = "e.g., Restaurant, Salon",
+                    imeAction = ImeAction.Next,
+                    onAction = { focusManager.moveFocus(FocusDirection.Next) }
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Location Input
-                OutlinedTextField(
+                SearchTextField(
                     value = location,
                     onValueChange = onLocationChange,
-                    label = { Text("Location") },
-                    placeholder = { Text("e.g., New York, London") },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true,
-                    trailingIcon = {
-                        if (location.isNotEmpty()) {
-                            IconButton(onClick = { onLocationChange("") }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Clear,
-                                    contentDescription = stringResource(R.string.search_clear),
-                                    tint = Color(0xFF94A3B8)
-                                )
-                            }
-                        }
-                    },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) })
+                    label = "Location",
+                    placeholder = "e.g., New York, London",
+                    imeAction = ImeAction.Next,
+                    onAction = { focusManager.moveFocus(FocusDirection.Next) }
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Category Input
-                OutlinedTextField(
+                SearchTextField(
                     value = category,
                     onValueChange = onCategoryChange,
-                    label = { Text("Category (Optional)") },
-                    placeholder = { Text("e.g., Food & Drink") },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true,
-                    trailingIcon = {
-                        if (category.isNotEmpty()) {
-                            IconButton(onClick = { onCategoryChange("") }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Clear,
-                                    contentDescription = stringResource(R.string.search_clear),
-                                    tint = Color(0xFF94A3B8)
-                                )
-                            }
-                        }
-                    },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                    keyboardActions = KeyboardActions(onSearch = {
+                    label = "Category (Optional)",
+                    placeholder = "e.g., Food & Drink",
+                    imeAction = ImeAction.Search,
+                    onAction = {
                         onSearch()
                         keyboardController?.hide()
                         focusManager.clearFocus()
-                    })
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
