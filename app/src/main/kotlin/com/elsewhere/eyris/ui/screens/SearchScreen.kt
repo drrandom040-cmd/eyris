@@ -125,7 +125,6 @@ fun SearchScreen(
                     unfocusedLabelColor = Color(0xFF94A3B8)
                 )
 
-                // Query Input
                 SearchInput(
                     value = query,
                     onValueChange = onQueryChange,
@@ -138,7 +137,6 @@ fun SearchScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Location Input
                 SearchInput(
                     value = location,
                     onValueChange = onLocationChange,
@@ -151,7 +149,6 @@ fun SearchScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // Category Input
                 SearchInput(
                     value = category,
                     onValueChange = onCategoryChange,
