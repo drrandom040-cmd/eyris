@@ -1,0 +1,3 @@
+## 2025-05-15 - Optimizing multi-field search keyboard flow
+**Learning:** In Jetpack Compose search forms, using `ImeAction.Next` for intermediate fields and `ImeAction.Search` for the final field significantly improves the user flow by guiding the keyboard focus. Additionally, explicitly calling `keyboardController?.hide()` and `focusManager.clearFocus()` on search initiation ensures the keyboard is dismissed even when the action is triggered from the search button or the IME.
+**Action:** Always implement explicit focus and keyboard management in search screens to prevent the keyboard from lingering after the user has initiated their primary action.
