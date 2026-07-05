@@ -43,6 +43,14 @@
     <string name="settings_title">Settings</string>
     <string name="settings_logout">Logout</string>
     <string name="settings_account">Account</string>
+
+    <!-- UX Strings -->
+    <string name="search_clear">Clear input</string>
+    <string name="social_instagram">Instagram</string>
+    <string name="social_facebook">Facebook</string>
+    <string name="social_tiktok">TikTok</string>
+    <string name="social_whatsapp">WhatsApp</string>
+    <string name="phone_description">Phone: %s</string>
     
     <!-- Errors -->
     <string name="error_network">Network error. Please check your connection.</string>
