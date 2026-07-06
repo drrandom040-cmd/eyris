@@ -37,8 +37,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.elsewhere.eyris.domain.model.Business
 import com.elsewhere.eyris.R
+import com.elsewhere.eyris.domain.model.Business
 import com.elsewhere.eyris.ui.components.BusinessCard
 import com.elsewhere.eyris.ui.viewmodel.SearchState
 
