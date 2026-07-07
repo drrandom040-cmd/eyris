@@ -1,3 +1,0 @@
-## 2025-05-14 - [Accessibility & Search UX]
-**Learning:** In Jetpack Compose, applying `Modifier.semantics { contentDescription = "..." }` to a `Text` composable overrides the screen reader's announcement of the underlying text. Descriptions for data-bearing components must include the value (e.g., 'Phone: $number') to maintain accessibility. Also, optimizing search forms with `ImeAction.Next` and `ImeAction.Search` along with trailing clear buttons significantly improves the 'flow' of multi-field search screens.
-**Action:** Always include the actual data in content descriptions for `Text` components when overriding semantics. Use `ImeAction.Next` to guide users through multi-field forms and `ImeAction.Search` for the final action.
