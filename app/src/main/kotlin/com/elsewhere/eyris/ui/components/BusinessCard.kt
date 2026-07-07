@@ -19,12 +19,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 
 @Composable
@@ -108,10 +112,12 @@ fun BusinessCard(
 
             // Phone
             if (!business.phone.isNullOrEmpty()) {
+                val phoneDesc = stringResource(R.string.phone_description, business.phone)
                 Text(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
-                    color = Color(0xFFF1F5F9)
+                    color = Color(0xFFF1F5F9),
+                    modifier = Modifier.semantics { contentDescription = phoneDesc }
                 )
             }
 
@@ -121,16 +127,20 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        val desc = stringResource(R.string.social_instagram)
+                        Text("📷", modifier = Modifier.padding(end = 4.dp).semantics { contentDescription = desc })
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        val desc = stringResource(R.string.social_facebook)
+                        Text("f", modifier = Modifier.padding(end = 4.dp).semantics { contentDescription = desc })
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        val desc = stringResource(R.string.social_tiktok)
+                        Text("🎵", modifier = Modifier.padding(end = 4.dp).semantics { contentDescription = desc })
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        val desc = stringResource(R.string.social_whatsapp)
+                        Text("💬", modifier = Modifier.padding(end = 4.dp).semantics { contentDescription = desc })
                     }
                 }
             }
