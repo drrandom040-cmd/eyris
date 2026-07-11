@@ -9,6 +9,7 @@
     <string name="nav_leads">Leads</string>
     
     <!-- Search Screen -->
+    <string name="search_clear">Clear</string>
     <string name="search_location_hint">Enter location</string>
     <string name="search_category_hint">Select category</string>
     <string name="search_button">Search</string>
