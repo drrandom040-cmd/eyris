@@ -10,11 +10,12 @@
     
     <!-- Search Screen -->
     <string name="search_query_label">Business Type</string>
+    <string name="search_query_hint">e.g., Restaurant, Salon</string>
     <string name="search_location_label">Location</string>
+    <string name="search_location_hint">e.g., New York, London</string>
     <string name="search_category_label">Category (Optional)</string>
+    <string name="search_category_hint">e.g., Food &amp; Drink</string>
     <string name="search_clear">Clear</string>
-    <string name="search_location_hint">Enter location</string>
-    <string name="search_category_hint">Select category</string>
     <string name="search_button">Search</string>
     <string name="search_loading">Searching businesses...</string>
     <string name="search_no_results">No results found</string>
