@@ -16,14 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -77,30 +70,23 @@ fun SearchScreen(
 
         // Search Inputs
         item {
-            val commonColors = OutlinedTextFieldDefaults.colors(
+            val fieldColors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFF7C3AED), unfocusedBorderColor = Color(0xFF16213E),
                 focusedTextColor = Color(0xFFF1F5F9), unfocusedTextColor = Color(0xFFF1F5F9),
                 focusedLabelColor = Color(0xFF7C3AED), unfocusedLabelColor = Color(0xFF94A3B8)
             )
-
             Column {
                 listOf(
-                    Triple(query, onQueryChange, R.string.search_query_label to R.string.search_query_hint),
-                    Triple(location, onLocationChange, R.string.search_location_label to R.string.search_location_hint),
-                    Triple(category, onCategoryChange, R.string.search_category_label to R.string.search_category_hint)
-                ).forEach { (value, onChange, res) ->
-                    val (labelRes, hintRes) = res
+                    Triple(query, onQueryChange, R.string.search_query_label),
+                    Triple(location, onLocationChange, R.string.search_location_label),
+                    Triple(category, onCategoryChange, R.string.search_category_label)
+                ).forEach { (value, onChange, labelRes) ->
                     OutlinedTextField(
-                        value = value, onValueChange = onChange,
-                        label = { Text(stringResource(labelRes)) },
-                        placeholder = { Text(stringResource(hintRes)) },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(8.dp), colors = commonColors, singleLine = true,
-                        trailingIcon = {
-                            if (value.isNotEmpty()) {
-                                IconButton(onClick = { onChange("") }) {
-                                    Icon(Icons.Default.Clear, stringResource(R.string.search_clear), tint = Color(0xFF94A3B8))
-                                }
+                        value = value, onValueChange = onChange, label = { Text(stringResource(labelRes)) },
+                        modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(8.dp), colors = fieldColors,
+                        singleLine = true, trailingIcon = {
+                            if (value.isNotEmpty()) IconButton(onClick = { onChange("") }) {
+                                Icon(Icons.Default.Clear, stringResource(R.string.search_clear), tint = Color(0xFF94A3B8))
                             }
                         },
                         keyboardOptions = KeyboardOptions(imeAction = if (labelRes == R.string.search_category_label) ImeAction.Search else ImeAction.Next),
@@ -111,10 +97,11 @@ fun SearchScreen(
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                 }
-
                 Button(
                     onClick = { onSearch(); keyboardController?.hide(); focusManager.clearFocus() },
-                    modifier = Modifier.fillMaxWidth().height(48.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp),
                     shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF7C3AED)
