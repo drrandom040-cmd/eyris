@@ -16,7 +16,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -77,12 +84,15 @@ fun SearchScreen(
             )
             Column {
                 listOf(
-                    Triple(query, onQueryChange, R.string.search_query_label),
-                    Triple(location, onLocationChange, R.string.search_location_label),
-                    Triple(category, onCategoryChange, R.string.search_category_label)
-                ).forEach { (value, onChange, labelRes) ->
+                    Triple(query, onQueryChange, R.string.search_query_label to R.string.search_query_hint),
+                    Triple(location, onLocationChange, R.string.search_location_label to R.string.search_location_hint),
+                    Triple(category, onCategoryChange, R.string.search_category_label to R.string.search_category_hint)
+                ).forEach { (value, onChange, res) ->
+                    val (labelRes, hintRes) = res
                     OutlinedTextField(
-                        value = value, onValueChange = onChange, label = { Text(stringResource(labelRes)) },
+                        value = value, onValueChange = onChange,
+                        label = { Text(stringResource(labelRes)) },
+                        placeholder = { Text(stringResource(hintRes)) },
                         modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(8.dp), colors = fieldColors,
                         singleLine = true, trailingIcon = {
                             if (value.isNotEmpty()) IconButton(onClick = { onChange("") }) {
