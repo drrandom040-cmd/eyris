@@ -1,0 +1,3 @@
+## 2024-07-14 - Optimizing Multi-Field Search UX
+**Learning:** In multi-field search forms (like Business Search), user flow is significantly improved by using `ImeAction.Next` for primary criteria to shift focus, and `ImeAction.Search` for the final optional field to trigger the action and dismiss the keyboard. Adding trailing clear buttons provides a "reset" affordance that reduces friction when iterating on search terms.
+**Action:** Always implement explicit `KeyboardActions` and matching `ImeAction` types for forms with more than two fields to ensure a smooth transition from input to action without manual keyboard dismissal.
