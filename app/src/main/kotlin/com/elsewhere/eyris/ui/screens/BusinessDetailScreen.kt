@@ -28,6 +28,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -102,7 +105,21 @@ fun BusinessDetailScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // Category and Rating
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.semantics(mergeDescendants = true) {
+                        contentDescription = if (business.rating != null) {
+                            stringResource(
+                                com.elsewhere.eyris.R.string.business_rating_summary,
+                                business.category,
+                                business.rating,
+                                business.reviewCount
+                            )
+                        } else {
+                            business.category
+                        }
+                    },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Text(
                         text = business.category,
                         fontSize = 14.sp,
@@ -278,7 +295,11 @@ fun SocialButton(
         contentAlignment = Alignment.CenterStart
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = icon, fontSize = 20.sp)
+            Text(
+                text = icon,
+                fontSize = 20.sp,
+                modifier = Modifier.semantics { contentDescription = null }
+            )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = label,
