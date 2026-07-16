@@ -11,6 +11,7 @@
     <!-- Search Screen -->
     <string name="search_location_hint">Enter location</string>
     <string name="search_category_hint">Select category</string>
+    <string name="search_clear">Clear</string>
     <string name="search_button">Search</string>
     <string name="search_loading">Searching businesses...</string>
     <string name="search_no_results">No results found</string>
