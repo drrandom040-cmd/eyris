@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -20,15 +22,23 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 import com.elsewhere.eyris.ui.components.BusinessCard
 import com.elsewhere.eyris.ui.viewmodel.SearchState
@@ -47,6 +57,9 @@ fun SearchScreen(
     onBusinessClick: (Business) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -66,79 +79,65 @@ fun SearchScreen(
 
         // Search Inputs
         item {
+            val searchFields = remember(query, location, category, onQueryChange, onLocationChange, onCategoryChange) {
+                listOf(
+                    Triple(query, onQueryChange, R.string.search_query_label to R.string.search_query_hint),
+                    Triple(location, onLocationChange, R.string.search_location_label to R.string.search_location_hint),
+                    Triple(category, onCategoryChange, R.string.search_category_label to R.string.search_category_hint)
+                )
+            }
+
             Column {
-                // Query Input
-                OutlinedTextField(
-                    value = query,
-                    onValueChange = onQueryChange,
-                    label = { Text("Business Type") },
-                    placeholder = { Text("e.g., Restaurant, Salon") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // Location Input
-                OutlinedTextField(
-                    value = location,
-                    onValueChange = onLocationChange,
-                    label = { Text("Location") },
-                    placeholder = { Text("e.g., New York, London") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // Category Input
-                OutlinedTextField(
-                    value = category,
-                    onValueChange = onCategoryChange,
-                    label = { Text("Category (Optional)") },
-                    placeholder = { Text("e.g., Food & Drink") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Color(0xFF7C3AED),
-                        unfocusedBorderColor = Color(0xFF16213E),
-                        focusedTextColor = Color(0xFFF1F5F9),
-                        unfocusedTextColor = Color(0xFFF1F5F9),
-                        focusedLabelColor = Color(0xFF7C3AED),
-                        unfocusedLabelColor = Color(0xFF94A3B8)
-                    ),
-                    singleLine = true
-                )
+                // Search Input Fields
+                searchFields.forEachIndexed { index, (value, onChange, labels) ->
+                    val isLast = index == 2
+                    OutlinedTextField(
+                        value = value,
+                        onValueChange = onChange,
+                        label = { Text(stringResource(labels.first)) },
+                        placeholder = { Text(stringResource(labels.second)) },
+                        modifier = Modifier.fillMaxWidth(),
+                        trailingIcon = {
+                            if (value.isNotEmpty()) {
+                                IconButton(onClick = { onChange("") }) {
+                                    Icon(Icons.Filled.Clear, stringResource(R.string.search_clear), tint = Color(0xFF94A3B8))
+                                }
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = if (isLast) ImeAction.Search else ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = { focusManager.moveFocus(FocusDirection.Next) },
+                            onSearch = {
+                                onSearch()
+                                keyboardController?.hide()
+                                focusManager.clearFocus()
+                            }
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color(0xFF7C3AED),
+                            unfocusedBorderColor = Color(0xFF16213E),
+                            focusedTextColor = Color(0xFFF1F5F9),
+                            unfocusedTextColor = Color(0xFFF1F5F9),
+                            focusedLabelColor = Color(0xFF7C3AED),
+                            unfocusedLabelColor = Color(0xFF94A3B8)
+                        ),
+                        singleLine = true
+                    )
+                    if (!isLast) Spacer(modifier = Modifier.height(12.dp))
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Search Button
                 Button(
-                    onClick = onSearch,
+                    onClick = {
+                        onSearch()
+                        keyboardController?.hide()
+                        focusManager.clearFocus()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
