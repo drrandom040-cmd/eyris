@@ -25,7 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 
 @Composable
 fun BusinessCard(
@@ -38,7 +43,11 @@ fun BusinessCard(
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF16213E))
-            .clickable(onClick = onClick)
+            .clickable(
+                role = Role.Button,
+                onClickLabel = stringResource(R.string.business_card_click_label),
+                onClick = onClick
+            )
             .padding(16.dp)
     ) {
         Column {
@@ -67,8 +76,23 @@ fun BusinessCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             // Category and Rating
+            val ratingSummary = if (business.rating != null) {
+                stringResource(
+                    R.string.business_rating_summary,
+                    business.category,
+                    business.rating,
+                    business.reviewCount
+                )
+            } else {
+                business.category
+            }
+
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = ratingSummary
+                    },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -81,7 +105,7 @@ fun BusinessCard(
                 if (business.rating != null) {
                     Icon(
                         imageVector = Icons.Filled.Star,
-                        contentDescription = "Rating",
+                        contentDescription = null,
                         tint = Color(0xFF7C3AED),
                         modifier = Modifier.size(14.dp)
                     )
@@ -108,10 +132,14 @@ fun BusinessCard(
 
             // Phone
             if (!business.phone.isNullOrEmpty()) {
+                val phoneDesc = stringResource(R.string.social_phone, business.phone)
                 Text(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
-                    color = Color(0xFFF1F5F9)
+                    color = Color(0xFFF1F5F9),
+                    modifier = Modifier.semantics {
+                        contentDescription = phoneDesc
+                    }
                 )
             }
 
@@ -121,16 +149,40 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        val instagramDesc = stringResource(R.string.social_instagram)
+                        Text(
+                            text = "📷",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = instagramDesc }
+                        )
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        val facebookDesc = stringResource(R.string.social_facebook)
+                        Text(
+                            text = "f",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = facebookDesc }
+                        )
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        val tiktokDesc = stringResource(R.string.social_tiktok)
+                        Text(
+                            text = "🎵",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = tiktokDesc }
+                        )
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        val whatsappDesc = stringResource(R.string.social_whatsapp)
+                        Text(
+                            text = "💬",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics { contentDescription = whatsappDesc }
+                        )
                     }
                 }
             }
