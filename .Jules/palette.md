@@ -1,0 +1,3 @@
+## 2025-02-18 - Custom Semantics and Merged Descendants in Row Components
+**Learning:** In Jetpack Compose, setting `Modifier.semantics(mergeDescendants = true)` while overriding `contentDescription` on a parent layout (e.g. category and rating Row) completely conceals all underlying children elements from screen readers. To prevent data loss (such as omitting the category name), the parent's custom `contentDescription` must explicitly combine all necessary textual data from its children in a localized format.
+**Action:** Always map parent layouts with merged descendants to a localized string resource utilizing dynamic placeholders, ensuring both structural integrity and complete content coverage for screen readers.
