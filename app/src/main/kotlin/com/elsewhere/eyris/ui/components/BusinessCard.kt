@@ -21,10 +21,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 
 @Composable
@@ -33,12 +39,17 @@ fun BusinessCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val clickLabel = stringResource(R.string.view_business_details)
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF16213E))
-            .clickable(onClick = onClick)
+            .clickable(
+                onClick = onClick,
+                onClickLabel = clickLabel,
+                role = Role.Button
+            )
             .padding(16.dp)
     ) {
         Column {
@@ -108,10 +119,14 @@ fun BusinessCard(
 
             // Phone
             if (!business.phone.isNullOrEmpty()) {
+                val phoneDesc = stringResource(R.string.social_phone) + ": ${business.phone}"
                 Text(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
-                    color = Color(0xFFF1F5F9)
+                    color = Color(0xFFF1F5F9),
+                    modifier = Modifier.semantics {
+                        contentDescription = phoneDesc
+                    }
                 )
             }
 
@@ -121,16 +136,48 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        val instagramDesc = stringResource(R.string.social_instagram)
+                        Text(
+                            text = "📷",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics {
+                                    contentDescription = instagramDesc
+                                }
+                        )
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        val facebookDesc = stringResource(R.string.social_facebook)
+                        Text(
+                            text = "f",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics {
+                                    contentDescription = facebookDesc
+                                }
+                        )
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        val tiktokDesc = stringResource(R.string.social_tiktok)
+                        Text(
+                            text = "🎵",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics {
+                                    contentDescription = tiktokDesc
+                                }
+                        )
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        val whatsappDesc = stringResource(R.string.social_whatsapp)
+                        Text(
+                            text = "💬",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .semantics {
+                                    contentDescription = whatsappDesc
+                                }
+                        )
                     }
                 }
             }

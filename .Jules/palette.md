@@ -1,0 +1,3 @@
+## 2025-07-19 - [Delightful Business Card Accessibility]
+**Learning:** In Jetpack Compose, raw emojis and symbolic representations (e.g., \'📞\', \'📷\') are read by screen readers as literal, generic glyphs or skipped entirely, resulting in data loss. Applying custom semantics with localized descriptions and setting a clear `role` with an explicit `onClickLabel` on cards ensures a translatable, predictable, and highly accessible user interface.
+**Action:** Always wrap symbol-only UI cues in custom `Modifier.semantics { contentDescription = ... }` with localized resources and define precise `onClickLabel` and `Role` values on parent containers to indicate actionability cleanly to screen readers.
