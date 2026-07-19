@@ -48,4 +48,12 @@
     <string name="error_network">Network error. Please check your connection.</string>
     <string name="error_auth">Authentication failed. Please try again.</string>
     <string name="error_database">Database error. Please try again.</string>
+
+    <!-- Accessibility / Micro-UX -->
+    <string name="view_business_details">View business details</string>
+    <string name="social_phone">Phone</string>
+    <string name="social_instagram">Instagram profile available</string>
+    <string name="social_facebook">Facebook page available</string>
+    <string name="social_tiktok">TikTok account available</string>
+    <string name="social_whatsapp">WhatsApp contact available</string>
 </resources>
