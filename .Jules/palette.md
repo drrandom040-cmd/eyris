@@ -1,0 +1,3 @@
+## 2024-07-20 - [Accessibility Semantics for Status and Contact Indicators]
+**Learning:** In Jetpack Compose, bare text or emoji indicators (like 📞, 📷, f, 🎵, 💬) used as status/contact signals inside cards are either ignored or incorrectly/confusingly announced by screen readers. Overriding their default text semantics with custom accessible descriptions using `clearAndSetSemantics` and localized strings prevents data loss and confusing screen reader pronunciations.
+**Action:** Always wrap emoji or short-text indicators in `clearAndSetSemantics` blocks and provide full, translatable descriptions when designing status or contact rows in Jetpack Compose.
