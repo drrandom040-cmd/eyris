@@ -1,0 +1,3 @@
+## 2024-07-22 - Emoji & Content Merging Semantics in Compose
+**Learning:** Raw emojis (e.g., '📷', 'f', '🎵', '💬', '📞') or icons inside clickable cards cause screen readers to announce fragmented, unlocalized glyph names instead of clear interactive actions. Combining these elements inside custom semantic layouts with `clearAndSetSemantics` and merging rating rows with localized descriptions prevents disjointed readouts and delivers a unified accessibility experience.
+**Action:** Always replace or overlay raw emoji elements with localized screen reader descriptions using `Modifier.clearAndSetSemantics` and use `Modifier.semantics(mergeDescendants = true)` on parent containers representing unified pieces of information.
