@@ -21,10 +21,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 
 @Composable
@@ -33,12 +39,17 @@ fun BusinessCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val clickLabel = stringResource(R.string.business_card_click_label)
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF16213E))
-            .clickable(onClick = onClick)
+            .clickable(
+                onClick = onClick,
+                onClickLabel = clickLabel,
+                role = Role.Button
+            )
             .padding(16.dp)
     ) {
         Column {
@@ -46,7 +57,7 @@ fun BusinessCard(
             if (!business.coverImageUrl.isNullOrEmpty()) {
                 AsyncImage(
                     model = business.coverImageUrl,
-                    contentDescription = business.name,
+                    contentDescription = null, // decorative when alongside title
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp)
@@ -66,9 +77,20 @@ fun BusinessCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Category and Rating
+            // Category and Rating (semantic merging)
+            val ratingSummary = stringResource(
+                R.string.business_rating_summary,
+                business.name,
+                business.category,
+                business.rating ?: 0.0,
+                business.reviewCount
+            )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = ratingSummary
+                    },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -81,7 +103,7 @@ fun BusinessCard(
                 if (business.rating != null) {
                     Icon(
                         imageVector = Icons.Filled.Star,
-                        contentDescription = "Rating",
+                        contentDescription = null, // merged into parent description
                         tint = Color(0xFF7C3AED),
                         modifier = Modifier.size(14.dp)
                     )
@@ -108,10 +130,14 @@ fun BusinessCard(
 
             // Phone
             if (!business.phone.isNullOrEmpty()) {
+                val phoneLabel = stringResource(R.string.social_phone)
                 Text(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
-                    color = Color(0xFFF1F5F9)
+                    color = Color(0xFFF1F5F9),
+                    modifier = Modifier.semantics {
+                        contentDescription = "$phoneLabel: ${business.phone}"
+                    }
                 )
             }
 
@@ -121,16 +147,48 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        val instagramLabel = stringResource(R.string.social_instagram)
+                        Text(
+                            text = "📷",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics {
+                                    contentDescription = instagramLabel
+                                }
+                        )
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        val facebookLabel = stringResource(R.string.social_facebook)
+                        Text(
+                            text = "f",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics {
+                                    contentDescription = facebookLabel
+                                }
+                        )
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        val tiktokLabel = stringResource(R.string.social_tiktok)
+                        Text(
+                            text = "🎵",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics {
+                                    contentDescription = tiktokLabel
+                                }
+                        )
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        val whatsappLabel = stringResource(R.string.social_whatsapp)
+                        Text(
+                            text = "💬",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics {
+                                    contentDescription = whatsappLabel
+                                }
+                        )
                     }
                 }
             }
