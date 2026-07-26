@@ -26,8 +26,25 @@ jobs:
           echo "FSQ_API_KEY=${{ secrets.FSQ_API_KEY }}" >> local.properties
 
       - name: Decode and write google-services.json
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
-          echo "${{ secrets.FIREBASE_CONFIG }}" | base64 -d > app/google-services.json
+          if [[ $FIREBASE_CONFIG == {* ]]; then
+            echo "$FIREBASE_CONFIG" > app/google-services.json
+          else
+            echo "$FIREBASE_CONFIG" | base64 -d > app/google-services.json
+          fi
+          python3 -c "
+          import json
+          with open('app/google-services.json', 'r') as f:
+              data = json.load(f)
+          if 'client' in data:
+              for client in data['client']:
+                  if 'client_info' in client and 'android_client_info' in client['client_info']:
+                      client['client_info']['android_client_info']['package_name'] = 'com.elsewhere.eyris'
+          with open('app/google-services.json', 'w') as f:
+              json.dump(data, f, indent=2)
+          "
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
