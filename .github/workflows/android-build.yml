@@ -35,10 +35,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build -x processDebugGoogleServices -x processReleaseGoogleServices
+        run: ./gradlew build -x processDebugGoogleServices -x processReleaseGoogleServices -x mapDebugSourceSetPaths -x mapReleaseSourceSetPaths
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug -x processDebugGoogleServices
+        run: ./gradlew assembleDebug -x processDebugGoogleServices -x mapDebugSourceSetPaths
 
       - name: Run unit tests
         run: ./gradlew test
