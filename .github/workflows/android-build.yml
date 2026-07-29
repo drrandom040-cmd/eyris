@@ -35,13 +35,13 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build -x processDebugGoogleServices -x processReleaseGoogleServices -x mapDebugSourceSetPaths -x mapReleaseSourceSetPaths
+        run: ./gradlew build -x processDebugGoogleServices -x processReleaseGoogleServices
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug -x processDebugGoogleServices -x processReleaseGoogleServices -x mapDebugSourceSetPaths -x mapReleaseSourceSetPaths
+        run: ./gradlew assembleDebug -x processDebugGoogleServices -x processReleaseGoogleServices
 
       - name: Run unit tests
-        run: ./gradlew test -x processDebugGoogleServices -x processReleaseGoogleServices -x mapDebugSourceSetPaths -x mapReleaseSourceSetPaths
+        run: ./gradlew test -x processDebugGoogleServices -x processReleaseGoogleServices
 
       - name: Upload APK to artifacts
         uses: actions/upload-artifact@v4
