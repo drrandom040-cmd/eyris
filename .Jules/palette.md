@@ -1,0 +1,3 @@
+## 2026-03-05 - [Enhancing Android Card Accessibility & Screen Reader Semantics]
+**Learning:** Screen readers pronouncing raw character indicators or emojis (such as 📷, f, 🎵, 💬, 📞) degrade user experience for blind and visually impaired users. In Jetpack Compose, calling `@Composable` functions (like `stringResource`) inside a non-composable semantics/clearAndSetSemantics block throws compilation errors.
+**Action:** Resolve localized strings outside semantics blocks within parent composable functions first, and pass the static string reference to the custom semantics contentDescription. Use custom click labels on cards to communicate actions clearly.

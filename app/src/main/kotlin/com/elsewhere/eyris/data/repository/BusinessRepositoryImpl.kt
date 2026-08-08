@@ -18,6 +18,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import java.util.UUID
@@ -72,17 +73,13 @@ class BusinessRepositoryImpl @Inject constructor(
             val filtered = RankingEngine.filterAndCapResults(ranked, maxResults = 20)
 
             // Get existing leads and contacted businesses to exclude them
-            val existingLeadIds = businessDao.getLeads().map { it.id }.toSet()
-            val existingContactedIds = businessDao.getContactedBusinessesByUser(
-                firebaseAuthManager.getCurrentUserId() ?: ""
-            ).map { it.businessId }.toSet()
+            val userId = firebaseAuthManager.getCurrentUserId() ?: ""
+            val existingLeadIds = businessDao.getLeads(userId).first().map { it.id }.toSet()
+            val existingContactedIds = businessDao.getContactedBusinessesByUser(userId).first().map { it.businessId }.toSet()
 
             val finalResults = filtered.filter { 
                 it.id !in existingLeadIds && it.id !in existingContactedIds
             }
-
-            // Save to local database
-            val userId = firebaseAuthManager.getCurrentUserId() ?: ""
             val businessEntities = finalResults.map { business ->
                 BusinessEntity(
                     id = business.id,
