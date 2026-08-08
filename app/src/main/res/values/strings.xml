@@ -48,4 +48,13 @@
     <string name="error_network">Network error. Please check your connection.</string>
     <string name="error_auth">Authentication failed. Please try again.</string>
     <string name="error_database">Database error. Please try again.</string>
+
+    <!-- BusinessCard Accessibility -->
+    <string name="social_instagram">Has Instagram account</string>
+    <string name="social_facebook">Has Facebook page</string>
+    <string name="social_tiktok">Has TikTok account</string>
+    <string name="social_whatsapp">Has WhatsApp contact</string>
+    <string name="social_phone">Phone: %1$s</string>
+    <string name="business_card_click_label">View business details</string>
+    <string name="business_rating_summary">Rating: %1$.1f stars, %2$d reviews</string>
 </resources>
