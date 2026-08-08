@@ -30,7 +30,7 @@ jobs:
           config="${{ secrets.FIREBASE_CONFIG }}"
           if [ -z "$config" ]; then
             echo "FIREBASE_CONFIG is empty, creating dummy google-services.json"
-            echo '{"project_info": {"project_number": "123456789012", "project_id": "eyris-dummy", "storage_bucket": "eyris-dummy.appspot.com"}, "client": [{"client_info": {"mobilesdk_app_id": "1:123456789012:android:12345678901234567890", "android_client_info": {"package_name": "com.elsewhere.eyris"}}, "oauth_client": [], "api_key": [{"current_key": "dummy_api_key"}], "services": {"appinvite_service": {"other_platform_oauth_client": []}}}], "configuration_version": "1"}' > app/google-services.json
+            echo 'eyJwcm9qZWN0X2luZm8iOiB7InByb2plY3RfbnVtYmVyIjogIjEyMzQ1Njc4OTAxMiIsICJwcm9qZWN0X2lkIjogImV5cmlzLWR1bW15IiwgInN0b3JhZ2VfYnVja2V0IjogImV5cmlzLWR1bW15LmFwcHNwb3QuY29tIn0sICJjbGllbnQiOiBbeyJjbGllbnRfaW5mbyI6IHsibW9iaWxlc2RrX2FwcF9pZCI6ICIxOjEyMzQ1Njc4OTAxMjphbmRyb2lkOjEyMzQ1Njc4OTAxMjM0NTY3ODkwIiwgImFuZHJvaWRfY2xpZW50X2luZm8iOiB7InBhY2thZ2VfbmFtZSI6ICJjb20uZWxzZXdoZXJlLmV5cmlzIn19LCAib2F1dGhfY2xpZW50IjogW10sICJhcGlfa2V5IjogW3siY3VycmVudF9rZXkiOiAiZHVtbXlfYXBpX2tleSJ9XSwgInNlcnZpY2VzIjogeyJhcHBpbnZpdGVfc2VydmljZSI6IHsib3RoZXJfcGxhdGZvcm1fb2F1dGhfY2xpZW50IjogW119fX1dLCAiY29uZmlndXJhdGlvbl92ZXJzaW9uIjogIjEifQ==' | base64 -d > app/google-services.json
           elif echo "$config" | grep -q "^{"; then
             echo "FIREBASE_CONFIG is raw JSON"
             echo "$config" > app/google-services.json
