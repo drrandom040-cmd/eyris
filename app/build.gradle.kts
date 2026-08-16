@@ -52,7 +52,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
 
     packagingOptions {
@@ -104,6 +104,7 @@ dependencies {
     implementation("io.ktor:ktor-client-core:2.3.3")
     implementation("io.ktor:ktor-client-android:2.3.3")
     implementation("io.ktor:ktor-client-serialization:2.3.3")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.3")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.3")
 
     // Jsoup (HTML Parsing)
