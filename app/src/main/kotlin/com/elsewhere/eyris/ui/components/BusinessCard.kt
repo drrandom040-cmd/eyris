@@ -121,7 +121,7 @@ fun BusinessCard(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
                     color = Color(0xFFF1F5F9),
-                    modifier = Modifier.semantics {
+                    modifier = Modifier.clearAndSetSemantics {
                         contentDescription = phoneDescription
                     }
                 )
