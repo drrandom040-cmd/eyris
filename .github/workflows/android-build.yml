@@ -27,7 +27,11 @@ jobs:
 
       - name: Decode and write google-services.json
         run: |
-          echo "${{ secrets.FIREBASE_CONFIG }}" | base64 -d > app/google-services.json
+          if [ -n "${{ secrets.FIREBASE_CONFIG }}" ]; then
+            echo "${{ secrets.FIREBASE_CONFIG }}" | base64 -d > app/google-services.json
+          else
+            echo '{"project_info":{"project_number":"0","project_id":"dummy","storage_bucket":"dummy"},"client":[{"client_info":{"mobilesdk_app_id":"1:0:android:0","android_client_info":{"package_name":"com.elsewhere.eyris"}},"api_key":[{"current_key":"dummy"}]}]}' > app/google-services.json
+          fi
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
