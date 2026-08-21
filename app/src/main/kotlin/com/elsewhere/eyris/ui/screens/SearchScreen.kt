@@ -73,9 +73,7 @@ fun SearchScreen(
                     onValueChange = onQueryChange,
                     label = { Text("Business Type") },
                     placeholder = { Text("e.g., Restaurant, Salon") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFF7C3AED),
@@ -96,9 +94,7 @@ fun SearchScreen(
                     onValueChange = onLocationChange,
                     label = { Text("Location") },
                     placeholder = { Text("e.g., New York, London") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFF7C3AED),
@@ -119,9 +115,7 @@ fun SearchScreen(
                     onValueChange = onCategoryChange,
                     label = { Text("Category (Optional)") },
                     placeholder = { Text("e.g., Food & Drink") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFF7C3AED),
