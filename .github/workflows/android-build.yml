@@ -68,7 +68,7 @@ jobs:
       - name: Generate Gradle wrapper JAR if missing
         run: |
           if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            gradle wrapper
+            mkdir -p temp_gradle_dir && cd temp_gradle_dir && touch settings.gradle.kts && gradle wrapper --gradle-version 8.8 && cp -r gradle .. && cd .. && rm -rf temp_gradle_dir
           fi
 
       - name: Grant execute permission for gradlew
