@@ -65,6 +65,12 @@ jobs:
           EOF
           fi
 
+      - name: Generate Gradle wrapper JAR if missing
+        run: |
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            gradle wrapper
+          fi
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
