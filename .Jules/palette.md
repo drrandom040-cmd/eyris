@@ -1,0 +1,3 @@
+## 2025-02-23 - Accessibility Semantics for Emojis and Contact Info
+**Learning:** Raw emoji text ('📷', 'f', '🎵', '💬', '📞') in Jetpack Compose UI components is spoken literally by TalkBack/screen readers ("camera", "f", "musical note", etc.). Overriding them with `Modifier.clearAndSetSemantics` using localized string resources (`social_instagram`, `social_phone`) transforms uninformative character output into clear, accessible descriptions.
+**Action:** Always apply `clearAndSetSemantics` to icon/emoji text nodes that represent actions or brands, resolving `stringResource` outside the semantics lambda context.
