@@ -21,10 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 
 @Composable
@@ -33,12 +37,19 @@ fun BusinessCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val clickLabel = stringResource(R.string.business_card_click_label)
+    val instagramLabel = stringResource(R.string.social_instagram)
+    val facebookLabel = stringResource(R.string.social_facebook)
+    val tiktokLabel = stringResource(R.string.social_tiktok)
+    val whatsappLabel = stringResource(R.string.social_whatsapp)
+    val phoneLabel = business.phone?.let { stringResource(R.string.social_phone, it) }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF16213E))
-            .clickable(onClick = onClick)
+            .clickable(onClickLabel = clickLabel, onClick = onClick)
             .padding(16.dp)
     ) {
         Column {
@@ -111,7 +122,10 @@ fun BusinessCard(
                 Text(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
-                    color = Color(0xFFF1F5F9)
+                    color = Color(0xFFF1F5F9),
+                    modifier = Modifier.clearAndSetSemantics {
+                        if (phoneLabel != null) contentDescription = phoneLabel
+                    }
                 )
             }
 
@@ -121,16 +135,36 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "📷",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics { contentDescription = instagramLabel }
+                        )
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "f",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics { contentDescription = facebookLabel }
+                        )
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "🎵",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics { contentDescription = tiktokLabel }
+                        )
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "💬",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics { contentDescription = whatsappLabel }
+                        )
                     }
                 }
             }
