@@ -44,6 +44,14 @@
     <string name="settings_logout">Logout</string>
     <string name="settings_account">Account</string>
     
+    <!-- Accessibility -->
+    <string name="social_instagram">Instagram</string>
+    <string name="social_facebook">Facebook</string>
+    <string name="social_tiktok">TikTok</string>
+    <string name="social_whatsapp">WhatsApp</string>
+    <string name="social_phone">Phone: %1$s</string>
+    <string name="business_card_click_label">View business details</string>
+
     <!-- Errors -->
     <string name="error_network">Network error. Please check your connection.</string>
     <string name="error_auth">Authentication failed. Please try again.</string>
