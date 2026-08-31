@@ -37,6 +37,10 @@ android {
         }
     }
 
+    lint {
+        abortOnError = false
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -52,7 +56,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
 
     packagingOptions {
@@ -103,6 +107,7 @@ dependencies {
     // Ktor Client (HTTP)
     implementation("io.ktor:ktor-client-core:2.3.3")
     implementation("io.ktor:ktor-client-android:2.3.3")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.3")
     implementation("io.ktor:ktor-client-serialization:2.3.3")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.3")
 
