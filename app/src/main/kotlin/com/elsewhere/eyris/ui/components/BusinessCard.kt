@@ -21,10 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 
 @Composable
@@ -33,12 +38,19 @@ fun BusinessCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val clickLabel = stringResource(R.string.business_card_click_label)
+    val phoneLabel = stringResource(R.string.social_phone)
+    val instagramDesc = stringResource(R.string.social_instagram)
+    val facebookDesc = stringResource(R.string.social_facebook)
+    val tiktokDesc = stringResource(R.string.social_tiktok)
+    val whatsappDesc = stringResource(R.string.social_whatsapp)
+
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF16213E))
-            .clickable(onClick = onClick)
+            .clickable(onClickLabel = clickLabel, onClick = onClick)
             .padding(16.dp)
     ) {
         Column {
@@ -111,7 +123,10 @@ fun BusinessCard(
                 Text(
                     text = "📞 ${business.phone}",
                     fontSize = 12.sp,
-                    color = Color(0xFFF1F5F9)
+                    color = Color(0xFFF1F5F9),
+                    modifier = Modifier.semantics {
+                        contentDescription = "$phoneLabel: ${business.phone}"
+                    }
                 )
             }
 
@@ -121,16 +136,44 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "📷",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics {
+                                    contentDescription = instagramDesc
+                                }
+                        )
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "f",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics {
+                                    contentDescription = facebookDesc
+                                }
+                        )
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "🎵",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics {
+                                    contentDescription = tiktokDesc
+                                }
+                        )
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        Text(
+                            "💬",
+                            modifier = Modifier
+                                .padding(end = 4.dp)
+                                .clearAndSetSemantics {
+                                    contentDescription = whatsappDesc
+                                }
+                        )
                     }
                 }
             }
