@@ -35,6 +35,12 @@ jobs:
             echo '{"project_info":{"project_number":"123456789","project_id":"dummy-project","storage_bucket":"dummy-project.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:123456789:android:123456789","android_client_info":{"package_name":"com.elsewhere.eyris"}},"oauth_client":[],"api_key":[{"current_key":"dummy_api_key"}],"services":{"appinvite_service":{"status":1,"other_platform_oauth_client":[]}}}],"configuration_version":"1"}' > app/google-services.json
           fi
 
+      - name: Ensure Gradle Wrapper JAR
+        run: |
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            mkdir -p temp_wrapper && cd temp_wrapper && touch settings.gradle.kts && gradle wrapper --gradle-version 8.8 && cp gradle/wrapper/gradle-wrapper.jar ../gradle/wrapper/ && cd .. && rm -rf temp_wrapper
+          fi
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
