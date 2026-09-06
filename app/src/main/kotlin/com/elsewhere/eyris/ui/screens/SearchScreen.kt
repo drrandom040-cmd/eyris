@@ -13,11 +13,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -73,9 +75,14 @@ fun SearchScreen(
                     onValueChange = onQueryChange,
                     label = { Text("Business Type") },
                     placeholder = { Text("e.g., Restaurant, Salon") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
+                    trailingIcon = if (query.isNotEmpty()) {
+                        {
+                            IconButton(onClick = { onQueryChange("") }) {
+                                Icon(Icons.Filled.Clear, contentDescription = "Clear business type", tint = Color(0xFF94A3B8))
+                            }
+                        }
+                    } else null,
+                    modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFF7C3AED),
@@ -96,9 +103,14 @@ fun SearchScreen(
                     onValueChange = onLocationChange,
                     label = { Text("Location") },
                     placeholder = { Text("e.g., New York, London") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
+                    trailingIcon = if (location.isNotEmpty()) {
+                        {
+                            IconButton(onClick = { onLocationChange("") }) {
+                                Icon(Icons.Filled.Clear, contentDescription = "Clear location", tint = Color(0xFF94A3B8))
+                            }
+                        }
+                    } else null,
+                    modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFF7C3AED),
@@ -119,9 +131,14 @@ fun SearchScreen(
                     onValueChange = onCategoryChange,
                     label = { Text("Category (Optional)") },
                     placeholder = { Text("e.g., Food & Drink") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
+                    trailingIcon = if (category.isNotEmpty()) {
+                        {
+                            IconButton(onClick = { onCategoryChange("") }) {
+                                Icon(Icons.Filled.Clear, contentDescription = "Clear category", tint = Color(0xFF94A3B8))
+                            }
+                        }
+                    } else null,
+                    modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color(0xFF7C3AED),
