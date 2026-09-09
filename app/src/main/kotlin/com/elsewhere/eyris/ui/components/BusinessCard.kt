@@ -21,10 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.elsewhere.eyris.R
 import com.elsewhere.eyris.domain.model.Business
 
 @Composable
@@ -33,12 +38,18 @@ fun BusinessCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val clickLabel = stringResource(R.string.business_card_click_label, business.name)
+    val instagramDesc = stringResource(R.string.social_instagram)
+    val facebookDesc = stringResource(R.string.social_facebook)
+    val tiktokDesc = stringResource(R.string.social_tiktok)
+    val whatsappDesc = stringResource(R.string.social_whatsapp)
+
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF16213E))
-            .clickable(onClick = onClick)
+            .clickable(onClickLabel = clickLabel, onClick = onClick)
             .padding(16.dp)
     ) {
         Column {
@@ -46,7 +57,7 @@ fun BusinessCard(
             if (!business.coverImageUrl.isNullOrEmpty()) {
                 AsyncImage(
                     model = business.coverImageUrl,
-                    contentDescription = business.name,
+                    contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp)
@@ -79,18 +90,28 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.width(8.dp))
 
                 if (business.rating != null) {
-                    Icon(
-                        imageVector = Icons.Filled.Star,
-                        contentDescription = "Rating",
-                        tint = Color(0xFF7C3AED),
-                        modifier = Modifier.size(14.dp)
+                    val ratingText = stringResource(
+                        R.string.business_rating_summary,
+                        business.rating,
+                        business.reviewCount
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "${business.rating} (${business.reviewCount})",
-                        fontSize = 12.sp,
-                        color = Color(0xFF94A3B8)
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.semantics { contentDescription = ratingText }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Star,
+                            contentDescription = null,
+                            tint = Color(0xFF7C3AED),
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "${business.rating} (${business.reviewCount})",
+                            fontSize = 12.sp,
+                            color = Color(0xFF94A3B8)
+                        )
+                    }
                 }
             }
 
@@ -121,16 +142,16 @@ fun BusinessCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     if (!business.instagram.isNullOrEmpty()) {
-                        Text("📷", modifier = Modifier.padding(end = 4.dp))
+                        Text("📷", modifier = Modifier.padding(end = 4.dp).clearAndSetSemantics { contentDescription = instagramDesc })
                     }
                     if (!business.facebook.isNullOrEmpty()) {
-                        Text("f", modifier = Modifier.padding(end = 4.dp))
+                        Text("f", modifier = Modifier.padding(end = 4.dp).clearAndSetSemantics { contentDescription = facebookDesc })
                     }
                     if (!business.tiktok.isNullOrEmpty()) {
-                        Text("🎵", modifier = Modifier.padding(end = 4.dp))
+                        Text("🎵", modifier = Modifier.padding(end = 4.dp).clearAndSetSemantics { contentDescription = tiktokDesc })
                     }
                     if (!business.whatsapp.isNullOrEmpty()) {
-                        Text("💬", modifier = Modifier.padding(end = 4.dp))
+                        Text("💬", modifier = Modifier.padding(end = 4.dp).clearAndSetSemantics { contentDescription = whatsappDesc })
                     }
                 }
             }
