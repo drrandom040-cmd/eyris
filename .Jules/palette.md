@@ -1,0 +1,3 @@
+## 2025-05-18 - Jetpack Compose Emoji Accessibility & Card Action Labels
+**Learning:** Raw emoji indicators (e.g. 📷, 📞, 🎵) in Jetpack Compose UI are pronounced phonetically or literally by TalkBack; using `Modifier.clearAndSetSemantics` with localized strings ensures screen readers speak readable labels like "Instagram" or "Phone: ...". Additionally, adding `onClickLabel` to `Modifier.clickable` gives screen reader users clear context on card interactions.
+**Action:** Always provide explicit accessibility labels (`onClickLabel` for cards, `clearAndSetSemantics` for emoji icons) when using visual symbols or icon indicators in Compose layouts.

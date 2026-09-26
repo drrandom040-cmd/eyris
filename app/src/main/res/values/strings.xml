@@ -27,6 +27,13 @@
     <string name="business_phone">Phone</string>
     <string name="business_hours">Hours</string>
     <string name="business_rating">Rating</string>
+    <string name="business_card_click_label">View business details</string>
+    <string name="business_rating_summary">%1$s. Rating: %2$.1f stars, %3$d reviews</string>
+    <string name="social_phone">Phone: %1$s</string>
+    <string name="social_instagram">Instagram</string>
+    <string name="social_facebook">Facebook</string>
+    <string name="social_tiktok">TikTok</string>
+    <string name="social_whatsapp">WhatsApp</string>
     
     <!-- Status -->
     <string name="status_answered">Answered</string>
