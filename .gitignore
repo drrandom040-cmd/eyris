@@ -13,6 +13,8 @@ local.properties
 *.log
 .DS_Store
 
+!gradle/wrapper/gradle-wrapper.jar
+
 # Android Studio generated files and folders
 .idea/
 .classpath
