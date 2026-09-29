@@ -30,7 +30,7 @@ class SyncManager @Inject constructor(
                 15, TimeUnit.MINUTES  // Sync every 15 minutes
             )
                 .setInputData(syncData)
-                .setBackoffPolicy(
+                .setBackoffCriteria(
                     BackoffPolicy.EXPONENTIAL,
                     15, TimeUnit.MINUTES
                 )
