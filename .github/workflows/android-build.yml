@@ -26,25 +26,8 @@ jobs:
           echo "FSQ_API_KEY=${{ secrets.FSQ_API_KEY }}" >> local.properties
 
       - name: Decode and write google-services.json
-        env:
-          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
-          if [ -n "$FIREBASE_CONFIG" ] && echo "$FIREBASE_CONFIG" | base64 -d > /dev/null 2>&1; then
-            echo "$FIREBASE_CONFIG" | base64 -d > app/google-services.json
-          else
-            echo '{"project_info":{"project_number":"0","project_id":"dummy","storage_bucket":"dummy"},"client":[{"client_info":{"mobilesdk_app_id":"1:0:android:0","android_client_info":{"package_name":"com.elsewhere.eyris"}},"api_key":[{"current_key":"dummy"}]}]}' > app/google-services.json
-          fi
-
-      - name: Ensure Gradle wrapper JAR exists
-        run: |
-          chmod +x gradlew
-          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            echo "Generating missing gradle-wrapper.jar..."
-            mkdir -p temp_wrapper && cd temp_wrapper && touch settings.gradle.kts
-            gradle wrapper --gradle-version 8.8
-            cp gradle/wrapper/gradle-wrapper.jar ../gradle/wrapper/
-            cd .. && rm -rf temp_wrapper
-          fi
+          echo "${{ secrets.FIREBASE_CONFIG }}" | base64 -d > app/google-services.json
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
