@@ -170,7 +170,7 @@ fun SettingsScreen(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Logout,
-                    contentDescription = "Logout",
+                    contentDescription = null,
                     tint = Color(0xFFF1F5F9),
                     modifier = Modifier.size(20.dp)
                 )
@@ -192,7 +192,7 @@ fun SettingsItem(
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp)
-            .clickable(onClick = onClick),
+            .clickable(onClickLabel = "Open $title", onClick = onClick),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFF16213E)
@@ -206,7 +206,7 @@ fun SettingsItem(
         ) {
             Icon(
                 imageVector = icon,
-                contentDescription = title,
+                contentDescription = null,
                 tint = Color(0xFF7C3AED),
                 modifier = Modifier.size(24.dp)
             )
