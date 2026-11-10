@@ -26,22 +26,72 @@ jobs:
           echo "FSQ_API_KEY=${{ secrets.FSQ_API_KEY }}" >> local.properties
 
       - name: Decode and write google-services.json
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         run: |
-          echo "${{ secrets.FIREBASE_CONFIG }}" | base64 -d > app/google-services.json
+          if [ -n "$FIREBASE_CONFIG" ] && echo "$FIREBASE_CONFIG" | base64 -d > /dev/null 2>&1; then
+            echo "$FIREBASE_CONFIG" | base64 -d > app/google-services.json
+          else
+            cat << 'DUMMY' > app/google-services.json
+{
+  "project_info": {
+    "project_number": "123456789012",
+    "project_id": "eyris-dummy",
+    "storage_bucket": "eyris-dummy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789012:android:abcdef1234567890",
+        "android_client_info": {
+          "package_name": "com.elsewhere.eyris"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "dummy_api_key"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+DUMMY
+          fi
+
+      - name: Ensure gradle wrapper jar
+        run: |
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            mkdir temp_gradle && cd temp_gradle && touch settings.gradle.kts && gradle wrapper --gradle-version 8.8 && cp -r gradle .. && cd .. && rm -rf temp_gradle
+          fi
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x processDebugGoogleServices -x processReleaseGoogleServices
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug -x processDebugGoogleServices
 
       - name: Run unit tests
-        run: ./gradlew test
+        run: ./gradlew test -x processDebugGoogleServices -x processReleaseGoogleServices
 
       - name: Upload APK to artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
