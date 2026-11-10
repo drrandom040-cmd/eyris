@@ -55,3 +55,4 @@ Thumbs.db
 
 # Node modules (if using any node-based tools)
 node_modules/
+!gradle/wrapper/gradle-wrapper.jar
